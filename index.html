@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshBite — Delicious, Delivered</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="#" class="brand" data-nav="home">🍊 FreshBite<span class="brand-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <nav class="main-nav" id="mainNav">
+      <a href="#" data-nav="home">Home</a>
+      <a href="#" data-nav="restaurants">Restaurants</a>
+      <a href="#" data-nav="about">About</a>
+      <a href="#" data-nav="contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" data-nav="account" title="Wishlist" id="wishlistNavBtn">❤️<span class="badge-count hidden" id="wishlistCount">0</span></button>
+      <button class="icon-btn" id="accountBtn" title="Account">👤</button>
+      <button class="icon-btn" id="cartBtn" title="Cart">🛒<span class="badge-count hidden" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <div class="page-view active" id="page-home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">psst… dinner's basically done</span>
+          <h1>Cozy meals, <span>delivered</span> to your door.</h1>
+          <p class="hero-sub">Browse local favorites, build your order, and track it in real time — FreshBite brings the neighborhood's best kitchens straight to you.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-nav="restaurants">Order Now →</button>
+            <button class="btn btn-outline" data-nav="about">Our Story</button>
+          </div>
+          <div class="hero-stats">
+            <div>120+<span>Partner kitchens</span></div>
+            <div>4.8★<span>Average rating</span></div>
+            <div>25 min<span>Avg. delivery</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="plate"><div class="bowl-emoji">🍜</div></div>
+          <div class="orbit-tag t1">🔥 Trending</div>
+          <div class="orbit-tag t2">🚴 25 min away</div>
+          <div class="orbit-tag t3">⭐ 4.9 rated</div>
+        </div>
+      </div>
+    </section>
+    <div class="scallop"></div>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">what are you craving?</span>
+          <h2>Shop by category</h2>
+        </div>
+        <div class="cat-scroll" id="categoryScroll"></div>
+      </div>
+    </section>
+
+    <section style="background:var(--cream-deep);">
+      <div class="scallop scallop-oncream" style="transform:rotate(180deg); margin-top:-64px;"></div>
+      <div class="container" style="padding-top:20px;">
+        <div class="section-head">
+          <span class="eyebrow">chef's picks</span>
+          <h2>Featured dishes</h2>
+        </div>
+        <div class="grid grid-4" id="featuredDishes"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="offer-strip">
+          <div>
+            <span class="sticker hot">20% OFF!</span>
+            <h3 style="margin-top:10px;">New here? Use code <span style="color:var(--gold);">WELCOME15</span></h3>
+            <p style="color:rgba(255,248,240,0.75); margin:0;">15% off your very first order, automatically applied at checkout.</p>
+          </div>
+          <button class="btn btn-primary" data-nav="restaurants">Browse Menus</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">near you tonight</span>
+          <h2>Popular restaurants</h2>
+        </div>
+        <div class="grid grid-3" id="popularRestaurants"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ RESTAURANT LISTING ============ -->
+  <div class="page-view" id="page-restaurants">
+    <section>
+      <div class="container">
+        <div class="section-head" style="margin-bottom:24px;">
+          <span class="eyebrow">so many good choices</span>
+          <h2>All restaurants</h2>
+        </div>
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label>Cuisine</label>
+            <select id="filterCuisine"></select>
+          </div>
+          <div class="filter-group">
+            <label>Price</label>
+            <select id="filterPrice">
+              <option value="All">All</option>
+              <option value="1">$</option>
+              <option value="2">$$</option>
+              <option value="3">$$$</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Sort by</label>
+            <select id="filterSort">
+              <option value="recommended">Recommended</option>
+              <option value="rating">Highest rated</option>
+              <option value="fastest">Fastest delivery</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Min. rating</label>
+            <select id="filterRating">
+              <option value="0">Any</option>
+              <option value="4">4.0+</option>
+              <option value="4.5">4.5+</option>
+              <option value="4.8">4.8+</option>
+            </select>
+          </div>
+        </div>
+        <p id="restaurantResultCount" style="font-weight:700; color:var(--brown-soft);"></p>
+        <div class="grid grid-3" id="restaurantGrid"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ MENU PAGE ============ -->
+  <div class="page-view" id="page-menu">
+    <section>
+      <div class="container">
+        <button class="btn btn-ghost btn-sm" data-nav="restaurants">← Back to restaurants</button>
+        <div class="rest-hero" id="restHeroBox"></div>
+        <div class="filters-bar">
+          <div class="filter-group" style="flex:1; min-width:200px;">
+            <label>Dietary</label>
+            <div class="pill-group" id="dietaryPills">
+              <button class="pill active" data-diet="All">All</button>
+              <button class="pill" data-diet="veg">🟢 Veg</button>
+              <button class="pill" data-diet="nonveg">🔴 Non-Veg</button>
+              <button class="pill" data-diet="vegan">🌱 Vegan</button>
+              <button class="pill" data-diet="gf">🌾 Gluten-Free</button>
+            </div>
+          </div>
+        </div>
+        <div id="menuCategoryBlocks"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ PRODUCT DETAIL ============ -->
+  <div class="page-view" id="page-product">
+    <section>
+      <div class="container">
+        <button class="btn btn-ghost btn-sm" id="backToMenuBtn">← Back to menu</button>
+        <div class="product-view" id="productDetailBox" style="margin-top:20px;"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ CART ============ -->
+  <div class="page-view" id="page-cart">
+    <section>
+      <div class="container">
+        <div class="section-head" style="margin-bottom:20px;">
+          <span class="eyebrow">almost there</span>
+          <h2>Your cart</h2>
+        </div>
+        <div id="cartPageContent"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ CHECKOUT ============ -->
+  <div class="page-view" id="page-checkout">
+    <section>
+      <div class="container">
+        <div class="section-head" style="margin-bottom:20px;">
+          <span class="eyebrow">last step, promise</span>
+          <h2>Checkout</h2>
+        </div>
+        <div id="checkoutContent"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ACCOUNT ============ -->
+  <div class="page-view" id="page-account">
+    <section>
+      <div class="container">
+        <div class="section-head" style="margin-bottom:10px;">
+          <span class="eyebrow" id="accountGreeting">hey there</span>
+          <h2>Your account</h2>
+        </div>
+        <div id="accountGate"></div>
+        <div id="accountBody" class="hidden">
+          <div class="account-tabs">
+            <button class="account-tab active" data-tab="profile">Profile</button>
+            <button class="account-tab" data-tab="orders">Order History</button>
+            <button class="account-tab" data-tab="addresses">Saved Addresses</button>
+            <button class="account-tab" data-tab="wishlist">Wishlist</button>
+          </div>
+          <div class="acc-pane active" id="pane-profile"></div>
+          <div class="acc-pane" id="pane-orders"></div>
+          <div class="acc-pane" id="pane-addresses"></div>
+          <div class="acc-pane" id="pane-wishlist"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ LOGIN / REGISTER ============ -->
+  <div class="page-view" id="page-login">
+    <section>
+      <div class="container">
+        <div class="auth-wrap">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-auth="login">Log In</button>
+            <button class="auth-tab" data-auth="register">Register</button>
+          </div>
+          <form id="loginForm">
+            <div class="field-stack">
+              <div class="field"><label>Email</label><input type="email" id="loginEmail" required placeholder="you@example.com"></div>
+              <div class="field"><label>Password</label><input type="password" id="loginPassword" required placeholder="••••••••"></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+          </form>
+          <form id="registerForm" class="hidden">
+            <div class="field-stack">
+              <div class="field"><label>Full name</label><input type="text" id="regName" required placeholder="Jordan Rivera"></div>
+              <div class="field"><label>Email</label><input type="email" id="regEmail" required placeholder="you@example.com"></div>
+              <div class="field"><label>Password</label><input type="password" id="regPassword" required placeholder="••••••••"></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+          </form>
+          <p style="text-align:center; margin-top:16px; font-size:.85rem; color:var(--brown-soft);">This is a simulated login for demo purposes — no real data leaves your browser.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <div class="page-view" id="page-about">
+    <section>
+      <div class="container about-grid">
+        <div>
+          <span class="eyebrow">how it all started</span>
+          <h2>A love letter to home kitchens</h2>
+          <p>FreshBite began in 2019 above a tiny noodle shop, when three friends realized the best food in town never showed up on any delivery app. So we built one — a platform that treats every partner kitchen like a neighbor, not a listing.</p>
+          <p>Today we work with local restaurants big and small, helping them reach hungry neighbors while keeping the warmth of a home-cooked meal intact.</p>
+          <div class="award-list">
+            <div><strong>2023</strong><br>Best Local Delivery App</div>
+            <div><strong>2024</strong><br>Foodie's Choice Award</div>
+            <div><strong>2025</strong><br>Top Rated Platform</div>
+          </div>
+        </div>
+        <div class="plate" style="margin:0 auto;"><div class="bowl-emoji">👩‍🍳</div></div>
+      </div>
+      <div class="container">
+        <div class="section-head" style="margin-top:50px;">
+          <span class="eyebrow">the people behind the plates</span>
+          <h2>Meet the team</h2>
+        </div>
+        <div class="team-grid">
+          <div class="team-card"><div class="emoji">👩‍🍳</div><h4>Maya Chen</h4><p style="margin:0;font-size:.85rem;">Co-founder & Head of Kitchens</p></div>
+          <div class="team-card"><div class="emoji">👨‍💼</div><h4>Diego Alvarez</h4><p style="margin:0;font-size:.85rem;">Co-founder & Operations</p></div>
+          <div class="team-card"><div class="emoji">👩‍💻</div><h4>Sara Malik</h4><p style="margin:0;font-size:.85rem;">Product & Engineering</p></div>
+          <div class="team-card"><div class="emoji">🧑‍🍳</div><h4>Owen Bright</h4><p style="margin:0;font-size:.85rem;">Culinary Partnerships</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ CONTACT ============ -->
+  <div class="page-view" id="page-contact">
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">say hello</span>
+          <h2>Get in touch</h2>
+        </div>
+        <div class="contact-grid">
+          <div>
+            <div class="map-box">🗺️</div>
+            <div class="contact-info-row" style="margin-top:20px;"><span class="ic">📍</span><div><strong>Address</strong><p style="margin:0;">45 Market Lane, Jaipur, Rajasthan 302001</p></div></div>
+            <div class="contact-info-row"><span class="ic">🕐</span><div><strong>Hours</strong><p style="margin:0;">Mon–Sun, 10:00 AM – 11:00 PM</p></div></div>
+            <div class="contact-info-row"><span class="ic">📞</span><div><strong>Phone</strong><p style="margin:0;">+91 98765 43210</p></div></div>
+            <div class="contact-info-row"><span class="ic">✉️</span><div><strong>Email</strong><p style="margin:0;">hello@freshbite.example</p></div></div>
+          </div>
+          <form class="form-card" id="contactForm">
+            <div class="field-stack">
+              <div class="field"><label>Name</label><input type="text" required placeholder="Your name"></div>
+              <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"></div>
+              <div class="field"><label>Message</label><textarea rows="5" required placeholder="How can we help?"></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3 style="margin:0;">Your Cart</h3>
+    <button class="icon-btn" id="closeDrawerBtn">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="brand" style="color:var(--cream);">🍊 FreshBite<span class="brand-dot" style="color:var(--orange);">.</span></div>
+      <p style="color:rgba(255,248,240,0.7); margin-top:10px; max-width:280px;">Cozy meals from neighborhood kitchens, delivered warm and on time.</p>
+      <div class="social-row">
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="Twitter">🐦</a>
+        <a href="#" title="Facebook">📘</a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#" data-nav="restaurants">Restaurants</a>
+      <a href="#" data-nav="about">About Us</a>
+      <a href="#" data-nav="contact">Contact</a>
+    </div>
+    <div>
+      <h4>Account</h4>
+      <a href="#" data-nav="login">Login / Register</a>
+      <a href="#" data-nav="account">My Orders</a>
+      <a href="#" data-nav="account">Wishlist</a>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a href="#" data-nav="contact">Help Center</a>
+      <a href="#" data-nav="contact">Delivery Info</a>
+      <a href="#" data-nav="contact">Terms & Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">© 2026 FreshBite. A demo project built for a web development internship. All food is fictional, all cravings are real.</div>
+</footer>
+
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
