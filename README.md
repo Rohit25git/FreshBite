@@ -1,8 +1,10 @@
 # FreshBite
 
+🚀 **[View Live Demo](https://rohit25git.github.io/FreshBite/)**
+
 ## HTML File Structure (`index.html`)
 
-The main HTML file (`index.html`) serves as the backbone of the FreshBite food delivery application. It contains a single-page application (SPA) structure with multiple page views that are toggled via JavaScript.
+The main HTML file (`index.html`) serves as the backbone of the FreshBite food delivery application. It contains a single-page application (SPA) structure with multiple page views that are toggled via class and `aria-hidden` attributes.
 
 ### Key Components:
 
